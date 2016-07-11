@@ -7,12 +7,12 @@
 #include "Event.h"
 #ifndef IOEVENT_H_
 #define IOEVENT_H_
-class IOEvent : Event{
+class IOEvent : public Event{
 private:
 	int fd;																//绑定的文件描述符
 public:
 	IOEvent(int , int );
-	int callback(void*) ;					//回调函数
+	int callback(void*) ;									//回调函数
 };
 
 

@@ -27,7 +27,7 @@ int IOEvent::callback(void *arg){
 		//TODO
 		//SendData
 		cout << "send to " << fd << endl
-					<< arg << endl;
+					<< (char*)arg << endl;
 	}
 
 	return 1;
