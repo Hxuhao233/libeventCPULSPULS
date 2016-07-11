@@ -4,14 +4,15 @@
  *  Created on: 2016年7月10日
  *      Author: hxuhao
  */
-
+#include "Event.h"
 #ifndef IOEVENT_H_
 #define IOEVENT_H_
-class IOEVENT : Event{
+class IOEvent : Event{
 private:
-	int fd;										//绑定的文件描述符
+	int fd;																//绑定的文件描述符
 public:
-	IOEVENT(int , int ,void(* c) (int,int,void));
+	IOEvent(int , int );
+	int callback(void*) ;					//回调函数
 };
 
 
