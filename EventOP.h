@@ -13,11 +13,11 @@ class EventOP{
 public :
 	EventOP();
 	~EventOP();
-	void init();																		//初始化 构造函数?
-	int add();
-	int del();
-	int dispatch(struct timeval*);																//事件分发
-	void dealoc();																//释放资源 析构函数?
+	static void init();																		//初始化 构造函数?
+	static int add();
+	static int del();
+	static int dispatch(struct timeval*);								//事件分发
+	void dealoc();																				//释放资源 析构函数?
 
 
 private :

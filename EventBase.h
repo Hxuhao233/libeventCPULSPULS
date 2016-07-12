@@ -20,8 +20,8 @@ private:
 	deque<Event*>eventList;
 	deque<Event*>activeEventList;
 
-	//IO demultplexer
-
+	//IO demultplexer ? back-end
+	EventOP * evsel;
 
 	int maxEventCount;
 	int nowEventCount;
@@ -33,7 +33,8 @@ public:
 	int EventAdd(Event*);										//注册事件
 	int EventDel(Event*);										//添加事件
 	int BaseLoop(int );											//主循环
-	static int haveEvent();									//是否注册事件
+	void EventProcessActive();							//处理活跃事件
+	static int haveEvent();									//是否有注册事件
 	void printall();
 
 
