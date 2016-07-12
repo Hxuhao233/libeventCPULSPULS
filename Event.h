@@ -17,6 +17,8 @@ class Event {
 protected:
 	int eventType;																	//关注的事件类型
 	//int fd;																					//绑定的文件描述符
+	//TODO
+	//时间事件,信号事件
 
 public:
 	Event(int);

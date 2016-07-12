@@ -6,6 +6,7 @@
  */
 #include "IOEvent.h"
 #include "Event.h"
+#include "EventOP.h"
 #include <deque>
 using namespace std;
 #ifndef EVENTBASE_H_
@@ -18,15 +19,21 @@ private:
 	//管理活跃事件
 	deque<Event*>eventList;
 	deque<Event*>activeEventList;
-		int maxEvent;
-	int nowEvent;
+
+	//IO demultplexer
+
+
+	int maxEventCount;
+	int nowEventCount;
+	int activeEventCount;
 
 public:
-	EventBase();
+	EventBase(int );
 	~EventBase();
-	int EventAdd(Event*);								//注册事件
-	int EventDel(Event*);								//添加事件
-	int BaseLoop();											//主循环
+	int EventAdd(Event*);										//注册事件
+	int EventDel(Event*);										//添加事件
+	int BaseLoop(int );											//主循环
+	static int haveEvent();									//是否注册事件
 	void printall();
 
 
