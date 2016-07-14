@@ -10,6 +10,10 @@
 
 class EpollOP : public EventOP{
 
+public:
+	EpollOP(char *name);
+	~EpollOP();
+
 };
 
 

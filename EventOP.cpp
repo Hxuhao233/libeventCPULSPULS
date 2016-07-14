@@ -6,5 +6,15 @@
  */
 
 #include "EventOP.h"
+EventOP::EventOP(char*n){
+	name = n;
+}
 
+EventOP::~EventOP(){
 
+}
+
+int EventOP::dispatch(struct timeval* tv){
+
+	return 0;
+}

@@ -5,12 +5,13 @@
  *      Author: hxuhao
  */
 #include "EventBase.h"
+#include "EpollOP.h"
 #include <iostream>
 using namespace std;
 
 EventBase::EventBase(int max){
 	//在编译的时候选择后端处理机制 可以是epoll也可以是别的
-	evsel = new EpollOP();
+	evsel = new EpollOP("epoll");
 	nowEventCount = 0;
 	activeEventCount = 0;
 	maxEventCount = max;
@@ -30,10 +31,14 @@ EventBase::~EventBase(){
 
 int EventBase::EventAdd(Event* e){
 
-	Event * e1 = e;
-	eventList.push_front(e1);
-	nowEventCount ++;
-	return 1;
+	if( (e->getEventType() & ( EV_READ|EV_WRITE ) ) &&
+			( e->getFlag() & ( EVLIST_INSERTED | EVLIST_ACTIVE)) ){
+
+		evsel->add(e);																		//向demultplexer 注册事件
+		eventList.push_front(e);													//加入管理事件的链表
+		nowEventCount ++;
+		return 1;
+}
 
 }
 
@@ -84,11 +89,18 @@ int EventBase::BaseLoop(int flag){
 		res = evsel->dispatch(tv_p);
 		if(res = -1)
 			return -1;
+
+		//TODO
+		//运行到这说明dispatch()返回了，说明必有一超时事件
+		//对超时事件的处理
+
+
 		//调用event_process_active()处理激活链表中的就绪event,调用其回调函数执行事件处理
 		//该函数会寻找最高优先级(priority值越小优先级越高)的激活事件链表,
 		//然后处理链表中的所有就绪事件;
 		//因此低优先级的就绪事件可能得不到及时处理;
 		//先不管优先级
+		//这里还有个问题:如何跳出循环
 		EventProcessActive();
 
 
@@ -98,14 +110,26 @@ int EventBase::BaseLoop(int flag){
 
 void EventBase::printall(){
 	deque<Event*>::iterator iter;
-	cout << "now event: " << nowEventCount;
+	cout << "now event: " << nowEventCount << endl;
 	for(iter = eventList.begin(); iter != eventList.end(); iter++)
 		(*iter)->callback((char*)"asd");
-
+	cout << "active event: " << activeEventCount << endl;
 }
 
-static int EventBase::haveEvent(){
+int EventBase::haveEvent(){
 	return (nowEventCount > 0);
 }
 
+void EventBase::EventProcessActive(){
+	cout << "EventBase.EventProcessActive()" << endl;
+	//最简单版
+	deque<Event*>::iterator iter;
+	for(iter = activeEventList.begin();iter != activeEventList.end(); iter++){
+		void *arg=(void *)"不知道= =";
+		(*iter)->callback(arg);
+	}
+
+
+
+}
 

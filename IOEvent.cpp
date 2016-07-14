@@ -15,6 +15,7 @@ IOEvent::IOEvent(int type,int fd):Event(type){
 }
 
 int IOEvent::callback(void *arg){
+	cout << "IOEvent callback\n";
 	switch(eventType){
 	case EV_READ:
 		//TODO

@@ -37,19 +37,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: libeventCPLUSPLUS
+all: libeventCPULSPULS
 
 # Tool invocations
-libeventCPLUSPLUS: $(OBJS) $(USER_OBJS)
+libeventCPULSPULS: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "libeventCPLUSPLUS" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "libeventCPULSPULS" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) libeventCPLUSPLUS
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) libeventCPULSPULS
 	-@echo ' '
 
 .PHONY: all clean dependents

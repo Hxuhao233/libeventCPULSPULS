@@ -4,20 +4,26 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../EpollOP.cpp \
 ../Event.cpp \
 ../EventBase.cpp \
+../EventOP.cpp \
 ../IOEvent.cpp \
 ../main.cpp 
 
 OBJS += \
+./EpollOP.o \
 ./Event.o \
 ./EventBase.o \
+./EventOP.o \
 ./IOEvent.o \
 ./main.o 
 
 CPP_DEPS += \
+./EpollOP.d \
 ./Event.d \
 ./EventBase.d \
+./EventOP.d \
 ./IOEvent.d \
 ./main.d 
 
