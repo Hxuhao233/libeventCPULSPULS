@@ -32,6 +32,7 @@ public:
 	int getEventType() const;
 	int getFlag() const;
 	int getRes() const;
+
 };
 
 

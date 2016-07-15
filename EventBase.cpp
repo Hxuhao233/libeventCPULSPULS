@@ -29,17 +29,24 @@ EventBase::~EventBase(){
 	cout << "EventBase destory succeed!" << endl;
 }
 
-int EventBase::EventAdd(Event* e){
-
+int EventBase::EventAdd(Event* e  , struct timeval* ev = NULL){
+	int res = 0 ;
+	//IO事件
 	if( (e->getEventType() & ( EV_READ|EV_WRITE ) ) &&
 			( e->getFlag() & ( EVLIST_INSERTED | EVLIST_ACTIVE)) ){
 
-		evsel->add(e);																		//向demultplexer 注册事件
-		eventList.push_front(e);													//加入管理事件的链表
-		nowEventCount ++;
-		return 1;
-}
+		res = evsel->add(e);															//向demultplexer 注册事件
+		if(res != -1){
+			insertQueue(e ,EVLIST_INSERTED);
+		}
 
+
+	}
+	//TODO
+	//超时事件
+
+
+	return res;
 }
 
 int EventBase::EventDel(Event* e){
@@ -129,7 +136,31 @@ void EventBase::EventProcessActive(){
 		(*iter)->callback(arg);
 	}
 
-
-
 }
 
+void EventBase::insertQueue(Event *e, int queue){
+	int flag =e->getFlag();
+//	if(flag & queue){
+//		if(flag & EVLIST_ACTIVE)
+//			return ;
+//	}
+	cout <<"insert "<< queue << endl;
+	flag |= queue;
+	e->setFlag(flag);
+	switch(queue){
+	case EVLIST_INSERTED:
+		eventList.push_back(e);
+		nowEventCount ++;
+		break;
+
+	case EVLIST_ACTIVE:
+
+		activeEventList.push_back(e);
+		activeEventCount ++;
+		break;
+	}
+}
+
+void EventBase::removeQueue(Event *e,int queue){
+
+}

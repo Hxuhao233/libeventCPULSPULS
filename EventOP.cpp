@@ -5,7 +5,11 @@
  *      Author: hxuhao
  */
 
+#include <iostream>
 #include "EventOP.h"
+
+using namespace std;
+
 EventOP::EventOP(char*n){
 	name = n;
 }
@@ -13,6 +17,11 @@ EventOP::EventOP(char*n){
 EventOP::~EventOP(){
 
 }
+
+int EventOP::add(Event *e){
+	cout << "EventOP add"<< endl;
+}
+
 
 int EventOP::dispatch(struct timeval* tv){
 

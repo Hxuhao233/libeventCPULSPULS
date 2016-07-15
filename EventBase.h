@@ -13,8 +13,8 @@ using namespace std;
 //事件链表类型
 #define EVLIST_TIMEOUT	0x01
 #define EVLIST_INSERTED	0x02
-#define EVLIST_SIGNAL	0x04
-#define EVLIST_ACTIVE	0x08
+#define EVLIST_SIGNAL		0x04
+#define EVLIST_ACTIVE			0x08
 #define EVLIST_INTERNAL	0x10
 #define EVLIST_INIT	0x80
 
@@ -42,14 +42,15 @@ private:
 public:
 	EventBase(int );
 	~EventBase();
-	int EventAdd(Event*);										//注册事件
+	int EventAdd(Event* ,struct timeval*);		//注册事件
 	int EventDel(Event*);											//添加事件
 	int BaseLoop(int );												//主循环
 	void EventProcessActive();							//处理活跃事件
 	void TimeoutProcess();									//处理超时事件
 	int haveEvent();													//是否有注册事件
 	void printall();
-
+	void insertQueue(Event* , int);						//插入队列
+	void removeQueue(Event* ,int);					//从队列中删除
 
 };
 

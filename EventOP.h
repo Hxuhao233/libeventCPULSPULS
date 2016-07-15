@@ -6,6 +6,8 @@
  *      Author: hxuhao
  */
 
+#include "Event.h"
+
 #ifndef EVENTOP_H_
 #define EVENTOP_H_
 
