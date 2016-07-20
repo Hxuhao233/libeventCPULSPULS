@@ -18,6 +18,7 @@ int main(){
 	e2.setFlag(EVLIST_ACTIVE);
 	base.EventAdd(&e1,NULL);
 	base.EventAdd(&e2,NULL);
+	//base.EventDel(&e1);
 	base.printall();
 	base.BaseLoop(10);
 	return 0;

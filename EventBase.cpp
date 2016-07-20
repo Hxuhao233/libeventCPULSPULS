@@ -5,8 +5,9 @@
  *      Author: hxuhao
  */
 #include "EventBase.h"
-#include "EpollOP.h"
 #include <iostream>
+
+#include "EpollOPS.h"
 using namespace std;
 
 EventBase::EventBase(int max){
@@ -51,13 +52,17 @@ int EventBase::EventAdd(Event* e  , struct timeval* ev = NULL){
 
 int EventBase::EventDel(Event* e){
 
-	deque<Event*>::iterator iter;
-	for(iter = eventList.begin(); iter != eventList.end(); iter++){
-		if(*iter==e){
-			eventList.erase(iter);
-			nowEventCount --;
-		}
+
+	//从对应列表中删除
+	if(e->getFlag() & EVLIST_ACTIVE)
+		removeQueue(e,EVLIST_ACTIVE);
+	if(e->getFlag() & EVLIST_INSERTED){
+		removeQueue(e,EVLIST_INSERTED);
+		//IO事件则需要向IO demultplexer注销
+		evsel->del(e);
 	}
+
+
 
 	return 1;
 }
@@ -162,5 +167,24 @@ void EventBase::insertQueue(Event *e, int queue){
 }
 
 void EventBase::removeQueue(Event *e,int queue){
+	deque<Event*>::iterator iter;
+	switch(queue){
+	case EVLIST_INSERTED:
+		for(iter = eventList.begin(); iter != eventList.end(); iter++){
+			if(*iter==e){
+				eventList.erase(iter);
+				nowEventCount --;
+			}
+		}
+		break;
 
+	case EVLIST_ACTIVE:
+		for(iter = activeEventList.begin(); iter != activeEventList.end(); iter++){
+			if(*iter==e){
+				activeEventList.erase(iter);
+				activeEventCount --;
+			}
+		}
+		break;
+	}
 }

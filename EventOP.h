@@ -19,7 +19,7 @@ public :
 	char* getName() const;
 	static void init();																		//初始化 构造函数?
 	static int add(Event* e);
-	static int del();
+	static int del(Event* e);
 	static int dispatch(struct timeval*);								//事件分发
 	void dealoc();																			//释放资源 析构函数?
 

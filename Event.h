@@ -20,6 +20,7 @@ protected:
 	int eventType;																	//关注的事件类型
 	int flag;
 	int res;
+	int ncalls;																				//需要回调的次数
 	//TODO
 	//时间事件,信号事件
 
@@ -29,9 +30,12 @@ public:
 	void setEventType(int );
 	void setFlag(int );
 	void setRes(int );
+	void setNcalls(int );
 	int getEventType() const;
 	int getFlag() const;
 	int getRes() const;
+	int getNcalls() const;
+
 
 };
 

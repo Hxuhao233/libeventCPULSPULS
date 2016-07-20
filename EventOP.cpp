@@ -22,6 +22,10 @@ int EventOP::add(Event *e){
 	cout << "EventOP add"<< endl;
 }
 
+int EventOP::del(Event *e){
+	cout << "EventOP del"<< endl;
+}
+
 
 int EventOP::dispatch(struct timeval* tv){
 

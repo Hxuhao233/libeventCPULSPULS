@@ -8,6 +8,9 @@
 
 Event::Event(int type){
 	eventType = type;
+	flag = 0;
+	res = 0;
+	ncalls = 1;
 }
 
 
@@ -34,4 +37,12 @@ int Event::getRes() const {
 
 void Event::setRes(int res) {
 	this->res = res;
+}
+
+int Event::getNcalls() const{
+	return ncalls;
+}
+
+void Event::setNcalls(int ncalls){
+	this->ncalls = ncalls;
 }
